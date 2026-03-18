@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+:root,
+[data-theme="default"] {
+    /* Studio Gray - Ultimate Comfort Palette */
+    --bg-main: #323437;
+    --bg-surface: #2c2e31;
+    --bg-elevated: #3c3f43;
+
+    --text-muted: #646669;
+    --text-active: #d1d0c5;
+
+    --accent-gold: #e2b714;
+    --accent-gold-glow: rgba(226, 183, 20, 0.1);
+
+    --error-red: #ca4754;
+    --error-bg: rgba(202, 71, 84, 0.1);
+
+    --f-passive: rgba(255, 255, 255, 0.03);
+
+    --font-ui: 'Inter', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    --transition-fast: 0.1s ease;
+    --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="mocha"] {
+    --bg-main: #282120;
+    --bg-surface: #211b1a;
+    --bg-elevated: #332b2a;
+    --text-active: #d1b894;
+    --text-muted: #6e5a58;
+    --accent-gold: #b2872f;
+}
+
+[data-theme="sakura"] {
+    --bg-main: #2b2326;
+    --bg-surface: #241c1f;
+    --bg-elevated: #362c30;
+    --text-active: #d1a8b9;
+    --text-muted: #735a64;
+    --accent-gold: #b36e84;
+}
+
+[data-theme="light"] {
+    --bg-main: #e8e9ec;
+    --bg-surface: #ffffff;
+    --bg-elevated: #d1d4db;
+    --text-active: #1f1f1f;
+    --text-muted: #9fa4b2;
+    --accent-gold: #4e5974;
+}
+
+[data-theme="midnight"] {
+    --bg-main: #000000;
+    --bg-surface: #0a0a0a;
+    --bg-elevated: #151515;
+    --text-active: #cccccc;
+    --text-muted: #444444;
+    --accent-gold: #eeeeee;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-active);
+    font-family: var(--font-ui);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.5s ease;
+}
+
+/* --- Welcome Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity var(--transition-smooth);
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: var(--bg-surface);
+    padding: 60px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--accent-gold);
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.action-btn {
+    background: var(--bg-elevated);
+    color: var(--text-active);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.action-btn:hover {
+    background: var(--accent-gold);
+    color: var(--bg-main);
+}
+
+/* --- Unified Top Navigation (The "MonkeyType" Balance) --- */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 50px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.logo span {
+    font-size: 0.6rem;
+    margin-left: 4px;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.logo:hover {
+    color: var(--accent-gold);
+}
+
+.minimal-stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 10px 25px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.mini-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.mini-stat .label {
+    font-size: 0.75rem;
+    text-transform: lowercase;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.mini-stat .val {
+    font-size: 1.4rem;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.mini-stat .pct {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.mini-graph {
+    width: 120px;
+    height: 30px;
+    opacity: 0.3;
+    margin-left: 5px;
+}
+
+.settings-group {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.theme-settings,
+.wc-settings,
+.hand-settings {
+    display: flex;
+    gap: 12px;
+    position: relative;
+}
+
+.wc-settings input,
+.hand-settings input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.setting-btn {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.setting-btn:hover {
+    color: var(--text-active);
+}
+
+input:checked+.setting-btn {
+    color: var(--accent-gold);
+}
+
+.setting-select {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    font-weight: 500;
+}
+
+.setting-select:hover {
+    color: var(--text-active);
+}
+
+/* --- Typing Stage --- */
+.main-stage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.typing-stage {
+    width: 100%;
+    max-width: 1000px;
+    outline: none;
+}
+
+.text-container {
+    font-family: var(--font-mono);
+    font-size: 2.3rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-muted);
+    position: relative;
+    letter-spacing: 0.12em;
+}
+
+.char {
+    transition: color 0.1s ease;
+    border-radius: 2px;
+}
+
+.char.correct {
+    color: var(--text-active);
+}
+
+.char.incorrect {
+    color: var(--error-red);
+    background-color: var(--error-bg);
+}
+
+.caret {
+    position: absolute;
+    width: 2px;
+    height: 2.6rem;
+    background-color: var(--accent-gold);
+    border-radius: 1px;
+    transition: transform 0.12s cubic-bezier(0.1, 0, 0, 1);
+    z-index: -1;
+}
+
+.caret.idle {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* --- Low-Strain Keyboard --- */
+.keyboard-container {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 850px;
+    gap: 10px;
+    justify-content: center;
+    opacity: 0.45;
+    transition: opacity var(--transition-smooth);
+}
+
+.keyboard:hover {
+    opacity: 0.85;
+}
+
+.key {
+    background-color: var(--bg-surface);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    transition: all 0.1s ease;
+}
+
+.key.active {
+    background-color: var(--bg-elevated);
+    color: var(--text-active);
+    transform: translateY(2px);
+    border-color: var(--accent-gold);
+}
+
+.key.error {
+    color: var(--error-red);
+    border-color: var(--error-red);
+}
+
+.key.wide {
+    width: 75px;
+}
+
+.key.extra-wide {
+    width: 95px;
+}
+
+.key.super-wide {
+    width: 115px;
+}
+
+.key.space-bar {
+    width: 400px;
+}
+
+/* Effects */
+@keyframes shakeTiny {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-1px);
+    }
+
+    75% {
+        transform: translateX(1px);
+    }
+}
+
+.shake-animation {
+    animation: shakeTiny 0.2s ease-in-out;
+}
+
+.isolate-left .right-hand {
+    opacity: 0.1;
+}
+
+.isolate-right .left-hand {
+    opacity: 0.1;
+}

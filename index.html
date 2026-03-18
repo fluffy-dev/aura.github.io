@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Premium Typing Trainer</title>
+    <!-- Beautiful Fonts: Inter for UI, Fira Code for Typing -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-theme="default">
+    <!-- Premium Welcome Modal -->
+    <div id="welcome-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h1 id="modal-title">Welcome to Aura</h1>
+            <p id="modal-text">Maded by Rauan with Love to my Kisa.</p>
+            <button id="modal-button" class="action-btn">Meow</button>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="logo">AURA<span></span></div>
+
+        <div class="minimal-stats-bar">
+            <div class="mini-stat"><span class="label">wpm</span> <span id="live-wpm" class="val">0</span></div>
+            <div class="mini-stat"><span class="label">acc</span> <span id="live-acc" class="val">100</span><span
+                    class="pct">%</span></div>
+            <div class="mini-stat"><span class="label">combo</span> <span id="live-streak" class="val">0</span></div>
+            <div class="mini-graph"><canvas id="wpm-chart" width="120" height="30"></canvas></div>
+        </div>
+
+        <div class="settings-group">
+            <div class="theme-settings">
+                <select id="theme-selector" class="setting-select">
+                    <option value="default">Studio</option>
+                    <option value="mocha">Mocha</option>
+                    <option value="sakura">Sakura</option>
+                    <option value="light">Light</option>
+                    <option value="midnight">Midnight</option>
+                </select>
+            </div>
+
+            <div class="wc-settings" id="wc-settings">
+                <input type="radio" id="wc-15" name="word-count" value="15" checked>
+                <label for="wc-15" class="setting-btn active-btn">15</label>
+
+                <input type="radio" id="wc-30" name="word-count" value="30">
+                <label for="wc-30" class="setting-btn">30</label>
+
+                <input type="radio" id="wc-60" name="word-count" value="60">
+                <label for="wc-60" class="setting-btn">60</label>
+            </div>
+
+            <div class="hand-settings">
+                <input type="radio" id="left-hand" name="hand-mode" value="left">
+                <label for="left-hand" class="setting-btn">Left</label>
+
+                <input type="radio" id="both-hands" name="hand-mode" value="both" checked>
+                <label for="both-hands" class="setting-btn active-btn">Both</label>
+
+                <input type="radio" id="right-hand" name="hand-mode" value="right">
+                <label for="right-hand" class="setting-btn">Right</label>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-stage">
+        <main class="typing-stage" id="typing-stage">
+            <div class="text-container" id="text-container">
+                <div class="caret" id="caret"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Analytics logic moved to Top Nav -->
+
+    <div class="main-layout">
+
+        <!-- Center Stage: Typing Area -->
+        <main class="typing-stage" id="typing-stage">
+            <!-- Text Content Injected Here -->
+            <div class="text-container" id="text-container">
+                <!-- Smooth Gliding Caret inside relative container for perfect coordiantes -->
+                <div class="caret" id="caret"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom: Virtual Keyboard -->
+    <div class="keyboard-container">
+        <div class="keyboard" id="virtual-keyboard">
+            <!-- Row 1 -->
+            <div class="key f-l-pinky" id="Backquote">`</div>
+            <div class="key f-l-pinky" id="Digit1">1</div>
+            <div class="key f-l-ring" id="Digit2">2</div>
+            <div class="key f-l-middle" id="Digit3">3</div>
+            <div class="key f-l-index" id="Digit4">4</div>
+            <div class="key f-l-index" id="Digit5">5</div>
+            <div class="key f-r-index" id="Digit6">6</div>
+            <div class="key f-r-index" id="Digit7">7</div>
+            <div class="key f-r-middle" id="Digit8">8</div>
+            <div class="key f-r-ring" id="Digit9">9</div>
+            <div class="key f-r-pinky" id="Digit0">0</div>
+            <div class="key f-r-pinky" id="Minus">-</div>
+            <div class="key f-r-pinky" id="Equal">=</div>
+            <div class="key wide f-r-pinky" id="Backspace">⌫</div>
+            <!-- Row 2 -->
+            <div class="key wide f-l-pinky" id="Tab">⇥</div>
+            <div class="key left-hand f-l-pinky" id="KeyQ">Q</div>
+            <div class="key left-hand f-l-ring" id="KeyW">W</div>
+            <div class="key left-hand f-l-middle" id="KeyE">E</div>
+            <div class="key left-hand f-l-index" id="KeyR">R</div>
+            <div class="key left-hand f-l-index" id="KeyT">T</div>
+            <div class="key right-hand f-r-index" id="KeyY">Y</div>
+            <div class="key right-hand f-r-index" id="KeyU">U</div>
+            <div class="key right-hand f-r-middle" id="KeyI">I</div>
+            <div class="key right-hand f-r-ring" id="KeyO">O</div>
+            <div class="key right-hand f-r-pinky" id="KeyP">P</div>
+            <div class="key right-hand f-r-pinky" id="BracketLeft">[</div>
+            <div class="key right-hand f-r-pinky" id="BracketRight">]</div>
+            <div class="key wide f-r-pinky" id="Backslash">\</div>
+            <!-- Row 3 -->
+            <div class="key extra-wide f-l-pinky" id="CapsLock">Caps</div>
+            <div class="key left-hand f-l-pinky" id="KeyA">A</div>
+            <div class="key left-hand f-l-ring" id="KeyS">S</div>
+            <div class="key left-hand f-l-middle" id="KeyD">D</div>
+            <div class="key left-hand f-l-index" id="KeyF">F</div>
+            <div class="key left-hand f-l-index" id="KeyG">G</div>
+            <div class="key right-hand f-r-index" id="KeyH">H</div>
+            <div class="key right-hand f-r-index" id="KeyJ">J</div>
+            <div class="key right-hand f-r-middle" id="KeyK">K</div>
+            <div class="key right-hand f-r-ring" id="KeyL">L</div>
+            <div class="key right-hand f-r-pinky" id="Semicolon">;</div>
+            <div class="key right-hand f-r-pinky" id="Quote">'</div>
+            <div class="key extra-wide f-r-pinky" id="Enter">⏎</div>
+            <!-- Row 4 -->
+            <div class="key super-wide f-l-pinky" id="ShiftLeft">⇧</div>
+            <div class="key left-hand f-l-pinky" id="KeyZ">Z</div>
+            <div class="key left-hand f-l-ring" id="KeyX">X</div>
+            <div class="key left-hand f-l-middle" id="KeyC">C</div>
+            <div class="key left-hand f-l-index" id="KeyV">V</div>
+            <div class="key left-hand f-l-index" id="KeyB">B</div>
+            <div class="key right-hand f-r-index" id="KeyN">N</div>
+            <div class="key right-hand f-r-index" id="KeyM">M</div>
+            <div class="key right-hand f-r-middle" id="Comma">,</div>
+            <div class="key right-hand f-r-ring" id="Period">.</div>
+            <div class="key right-hand f-r-pinky" id="Slash">/</div>
+            <div class="key super-wide f-r-pinky" id="ShiftRight">⇧</div>
+            <!-- Row 5 -->
+            <div class="key space-bar f-thumb" id="Space">Space</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
